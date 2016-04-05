@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns="http://www.example.com/simpleHttp"
+               xsi:schemaLocation="http://www.example.com/configurationSchem.xsd">
+
+    <bean url="/"  classPath="processor.RootPageProcess" />
+    <bean url="/Login"  classPath="processor.LoginProcessor" />
+    <bean url="/Main"  classPath="processor.MainProcessor" />
+    <bean url="/Exit"  classPath="processor.ExitProcessor" />
+</configuration>
+
