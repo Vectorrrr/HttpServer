@@ -1,6 +1,8 @@
 package model;
 
 /**
+ * URL and contains a pair of classes
+ * to handle this URL
  * @author Gladush Ivan
  * @since 29.03.16.
  */

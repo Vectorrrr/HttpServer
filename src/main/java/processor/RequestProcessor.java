@@ -16,7 +16,7 @@ public class RequestProcessor {
     private static final String REGEX_FOR_GET_URL="((?<= )/(.*)(?= HTTP))";
     private static final String ROOT_PAGE_URL = "/";
     private static final String REGEX_FOR_COOKIE ="((?<=session=)((-){0,1}[0-9]+))";
-    public static final String EMPTY_STRING = "";
+    private static final String EMPTY_STRING = "";
 
     public static TypeRequest getTypeRequest(String request){
         Matcher matcher = Pattern.compile(REGEX_FOR_SEARCH_TYPE_REQUEST).matcher(request);
@@ -27,7 +27,7 @@ public class RequestProcessor {
         return TypeRequest.UNKNOWN;
     }
 
-    public static TypeRequest convertToTypeRequst(String nameType) {
+    private static TypeRequest convertToTypeRequst(String nameType) {
         for(TypeRequest tr:TypeRequest.values()){
             if(tr.typeRequest().equals(nameType)){
                 return tr;
@@ -53,5 +53,5 @@ public class RequestProcessor {
         return EMPTY_STRING;
     }
     private static final String CANT_FIND_REQUEST = "I can't find a request type. Check correct you regexp. I return a unknown type";
-    public static final String DONT_FIND_URL = "URL doesn't contains url. Method return a root page URL";
+    private static final String DONT_FIND_URL = "URL doesn't contains url. Method return a root page URL";
 }

@@ -36,12 +36,10 @@ public class Session {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o==null)
+    public boolean equals(Object o) {
+        if (o == null)
             return false;
-        if(!(o instanceof Session))
-            return false;
-        return ((Session) o).getId()==id;
+        return o instanceof Session && ((Session) o).getId() == id;
 
     }
     @Override

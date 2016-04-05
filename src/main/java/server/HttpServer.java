@@ -8,6 +8,7 @@ import utils.CheckerCorrectScheme;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -17,7 +18,8 @@ import java.util.concurrent.Executors;
  */
 public class HttpServer implements  Runnable {
     private static final Logger log = Logger.getLogger(HttpServer.class);
-    public static final String EXCEPTION_WHEN_SERVER_WORK = "Exception when sever work. Server stopped. %s";
+    private static final String EXCEPTION_WHEN_SERVER_WORK = "Exception when sever work. Server stopped. %s";
+    private static final String ERROR_IN_WORK = "Error in server work %f";
     private static final Executor executor = Executors.newFixedThreadPool(10);
     private ProcessorHolder processorHolder;
     private int port;
@@ -29,7 +31,12 @@ public class HttpServer implements  Runnable {
 
 
     public static void main(String[] args) {
-        new Thread(new HttpServer(initProcessorHolder(args), 8080)).start();
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("Input port name");
+            new Thread(new HttpServer(initProcessorHolder(args), sc.nextInt())).start();
+        } catch (Exception e) {
+            log.error(String.format(ERROR_IN_WORK, e.getMessage()));
+        }
     }
 
     private static String getFileName(String[] args) {
@@ -69,7 +76,6 @@ public class HttpServer implements  Runnable {
             }
         } catch (Exception e) {
             log.error(String.format(EXCEPTION_WHEN_SERVER_WORK, e.getMessage()));
-            return;
         }
     }
 

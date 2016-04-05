@@ -12,16 +12,13 @@ import java.util.Map;
  * @since 29.03.16.
  */
 public class Request {
-    private String header;
     private String url;
     private TypeRequest typeRequest;
     private Map<String, String> parameters = new HashMap<>();
     private Session session;
 
     public Request(TypeRequest typeRequest, String header) {
-        System.out.println(header);
         this.typeRequest = typeRequest;
-        this.header = header;
         this.url = RequestProcessor.getURL(header);
         this.session=initSession(header);
     }

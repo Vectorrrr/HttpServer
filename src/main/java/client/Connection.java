@@ -18,10 +18,10 @@ import java.net.Socket;
  */
 public class Connection  implements AutoCloseable {
     private static final Logger log = Logger.getLogger(Connection.class);
-    public static final String EXCEPTION_READ_SOCKET = "I can't read socket, because %s %s";
-    public static final String EMPTY_STRING = "";
-    public static final String INCORRECT_PARAMETER_IN_CONTENT = "Incorrect parameter in content %s";
-    public static final String CANT_SEND_RESPONSE = "Can't send response client because %s";
+    private static final String EXCEPTION_READ_SOCKET = "I can't read socket, because %s %s";
+    private static final String EMPTY_STRING = "";
+    private static final String INCORRECT_PARAMETER_IN_CONTENT = "Incorrect parameter in content %s";
+    private static final String CANT_SEND_RESPONSE = "Can't send response client because %s";
     private static final String CONTENT_HEADER = "Content-Length: ";
 
     private SessionHolder sessionHolder;

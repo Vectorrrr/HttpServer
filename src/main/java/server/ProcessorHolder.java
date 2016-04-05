@@ -18,10 +18,9 @@ import java.util.*;
  * @since 29.03.16.
  */
 public class ProcessorHolder {
-    private static final String ROOT_PAGES = "/";
     private static final Logger log = Logger.getLogger(ProcessorHolder.class);
-    public static final String EXCEPTION_CREATE_PROCESSOR_HOLDER = "I can't create file %s";
-    public static final String EXCEPTION_CREATE_FILE = "I can't create new instance of class. Check exist it file. %s";
+    private static final String EXCEPTION_CREATE_PROCESSOR_HOLDER = "I can't create file %s";
+    private static final String EXCEPTION_CREATE_FILE = "I can't create new instance of class. Check exist it file. %s";
     private List<Bean> processors = new ArrayList<>();
 
     /**

@@ -19,7 +19,7 @@ import javax.xml.validation.Validator;
  */
 public class CheckerCorrectScheme {
     private static final Logger log= Logger.getLogger(CheckerCorrectScheme.class);
-    public static final String INCCORECT_SCHEM = "This file does not meet the scheme %s";
+    private static final String INCCORECT_SCHEM = "This file does not meet the scheme %s";
 
     /**
      * The method receives a file to check

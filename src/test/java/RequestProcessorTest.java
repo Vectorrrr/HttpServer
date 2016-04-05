@@ -12,7 +12,7 @@ import static junit.framework.TestCase.assertEquals;
  */
 
 public class RequestProcessorTest {
-    public static final String EMPTY_STRING = "";
+    private static final String EMPTY_STRING = "";
 
     @Test
     public void get_method_name_test1() {
