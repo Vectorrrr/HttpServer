@@ -3,6 +3,8 @@ package processor;
 import model.Request;
 
 /**
+ * Home page on which users enter at
+ * the first entrance to the site
  * @author Gladush Ivan
  * @since 30.03.16.
  */

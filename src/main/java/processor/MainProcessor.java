@@ -3,6 +3,7 @@ package processor;
 import model.Request;
 
 /**
+ * Home page of the site that allows the user to log out
  * @author Gladush Ivan
  * @since 30.03.16.
  */

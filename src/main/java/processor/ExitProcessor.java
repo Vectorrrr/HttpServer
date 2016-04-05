@@ -4,6 +4,8 @@ import model.Request;
 import server.session.SessionHolder;
 
 /**
+ * if the user wants to log in again,
+ * his request will handle this class
  * @author Gladush Ivan
  * @since 31.03.16.
  */

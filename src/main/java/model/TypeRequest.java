@@ -1,6 +1,8 @@
 package model;
 
 /**
+ * Enum contains all requests
+ * supported http server
  * @author Gladush Ivan
  * @since 29.03.16.
  */

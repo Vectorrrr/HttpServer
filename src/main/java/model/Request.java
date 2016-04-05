@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * A class that holds data about
+ * the request URL, query type, as well as options
  * @author Gladush Ivan
  * @since 29.03.16.
  */
@@ -49,11 +51,6 @@ public class Request {
 
     public String getUserInformation(){
         return session.userName()+" "+session.userSurname();
-    }
-
-    @Override
-    public String toString() {
-        return parameters.toString();
     }
 
 }

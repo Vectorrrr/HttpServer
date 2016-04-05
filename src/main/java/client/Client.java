@@ -6,7 +6,8 @@ import processor.PageProcessor;
 import server.ProcessorHolder;
 
 /**
- * This class
+ * This class models a processing
+ * request to the server
  * @author Gladush Ivan
  * @since 29.03.16.
  */

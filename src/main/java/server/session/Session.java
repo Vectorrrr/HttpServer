@@ -5,11 +5,13 @@ import model.User;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * Class session simulates a single person,
+ * the session is valid as long as the user log out.
+ * Sessions are considered equal if they are equal to id
  * @author Gladush Ivan
  * @since 30.03.16.
  */
 public class Session {
-
     private static AtomicInteger countSession =new AtomicInteger(-2);
     private int id;
     private User user;
@@ -37,13 +39,8 @@ public class Session {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null)
-            return false;
-        return o instanceof Session && ((Session) o).getId() == id;
+        return o != null && o instanceof Session && ((Session) o).getId() == id;
 
     }
-    @Override
-    public String toString(){
-        return user.toString()+" ID: "+id;
-    }
+
 }

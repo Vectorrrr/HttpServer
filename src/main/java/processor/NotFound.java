@@ -3,6 +3,8 @@ package processor;
 import model.Request;
 
 /**
+ * When the URL for the handler was not found, then the URL
+ * will handle this class
  * @author Gladush Ivan
  * @since 05.04.16.
  */

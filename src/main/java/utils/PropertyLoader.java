@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
+ * Class load property
  * @author Gladush Ivan
  * @since 29.03.16.
  */
@@ -14,6 +15,10 @@ public class PropertyLoader {
     private static final String EXCEPTION_DOWNLOAD_PROPERTIES = "I can't download properties %s";
     private static final String EXCEPTION_PROPETIE_DONT_FOUND = "This property not exist";
     private static Properties properties = new Properties();
+
+    private PropertyLoader(String fileName){
+
+    }
 
     static {
         try {
@@ -25,7 +30,7 @@ public class PropertyLoader {
     }
 
 
-    public static String property(String propertyKey) {
+    public  String property(String propertyKey) {
         String property = (String) properties.get(propertyKey);
         if (property == null) {
             log.error(EXCEPTION_PROPETIE_DONT_FOUND);

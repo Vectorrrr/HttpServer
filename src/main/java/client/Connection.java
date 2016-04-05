@@ -4,7 +4,6 @@ import model.Request;
 import model.TypeRequest;
 import org.apache.log4j.Logger;
 import processor.RequestProcessor;
-import server.session.SessionHolder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +12,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 /**
+ * This class models the connection
+ * between the client and the server
  * @author Gladush Ivan
  * @since 29.03.16.
  */
@@ -24,7 +25,6 @@ public class Connection  implements AutoCloseable {
     private static final String CANT_SEND_RESPONSE = "Can't send response client because %s";
     private static final String CONTENT_HEADER = "Content-Length: ";
 
-    private SessionHolder sessionHolder;
     private Socket socket;
     private Request request = null;
 
@@ -33,7 +33,6 @@ public class Connection  implements AutoCloseable {
 
     public Connection(Socket socket) {
         this.socket = socket;
-        this.sessionHolder = sessionHolder;
     }
 
     public Request getRequest() {
@@ -103,7 +102,7 @@ public class Connection  implements AutoCloseable {
         TypeRequest type = RequestProcessor.getTypeRequest(line);
         int contentLength = 0;
         do {
-            head.append('\n' + line);
+            head.append('\n').append(line);
             if (TypeRequest.POST.equals(type) &&
                 line.startsWith(CONTENT_HEADER)) {
                 contentLength = Integer.parseInt(line.split(" ")[1]);
@@ -126,7 +125,7 @@ public class Connection  implements AutoCloseable {
     }
 
 
-    public static final String MANUAL_DECIDE_PROBLEM = "The error due to the fact that the socket can" +
+    private static final String MANUAL_DECIDE_PROBLEM = "The error due to the fact that the socket can" +
             "not be used to read the data. Check the premature closure of the socket, or that " +
             "your application does not close the socket. Perhaps the client is disconnected.";
 

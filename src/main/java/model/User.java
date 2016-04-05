@@ -1,6 +1,8 @@
 package model;
 
 /**
+ * The class contains information
+ * about an authorized user
  * @author Gladush Ivan
  * @since 30.03.16.
  */

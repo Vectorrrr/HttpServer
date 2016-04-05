@@ -14,6 +14,10 @@ import java.util.*;
 
 
 /**
+ * The class reads all the files and the URL
+ * of the processing of their properties and,
+ * if necessary, returns a URL object classes
+ * processor data
  * @author Gladush Ivan
  * @since 29.03.16.
  */

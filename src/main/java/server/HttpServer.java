@@ -13,13 +13,15 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
+ * Class server downloads the settings
+ * needed to operate and runs it.
  * @author Gladush Ivan
  * @since 28.03.16.
  */
 public class HttpServer implements  Runnable {
     private static final Logger log = Logger.getLogger(HttpServer.class);
     private static final String EXCEPTION_WHEN_SERVER_WORK = "Exception when sever work. Server stopped. %s";
-    private static final String ERROR_IN_WORK = "Error in server work %f";
+    private static final String ERROR_IN_WORK = "Error in server work %s";
     private static final Executor executor = Executors.newFixedThreadPool(10);
     private ProcessorHolder processorHolder;
     private int port;
@@ -39,6 +41,13 @@ public class HttpServer implements  Runnable {
         }
     }
 
+    //TODO MAKE PROPERTIES
+    /**
+     * This method checks whether the
+     * file name lo for the properties is transferred
+     * via the command line or the need to take the default file.
+     *After that the file is checked for compliance with the scheme
+     */
     private static String getFileName(String[] args) {
         String pathToFile;
         switch (args.length) {

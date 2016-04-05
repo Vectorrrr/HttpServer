@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
+ * It contains all current active sessions
  * @author Gladush Ivan
  * @since 30.03.16.
  */

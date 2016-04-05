@@ -6,6 +6,9 @@ import model.User;
 import server.session.SessionHolder;
 
 /**
+ * Class responsible for user authentication processing on
+ * the site if the user has logged in, it will automatically
+ * be redirected to the main page
  * @author Gladush Ivan
  * @since 29.03.16.
  */
