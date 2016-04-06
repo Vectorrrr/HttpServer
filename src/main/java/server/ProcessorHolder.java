@@ -56,7 +56,6 @@ public class ProcessorHolder {
         for (Bean pr : processors) {
             if (pr.getUrl().equals(processor)) {
                 try {
-                    System.out.println(1);
                     return (PageProcessor) Class.forName(pr.getClassPath()).newInstance();
                 } catch (Exception e) {
                     log.error(String.format(EXCEPTION_CREATE_FILE, e.getMessage()));

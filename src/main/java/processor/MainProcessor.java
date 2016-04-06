@@ -1,6 +1,7 @@
 package processor;
 
 import model.Request;
+import server.session.SessionHolder;
 
 /**
  * Home page of the site that allows the user to log out
@@ -26,17 +27,15 @@ public class MainProcessor implements PageProcessor {
             "Connection: close\r\n\r\n %s";
 
     private String redirectHeader="HTTP/1.1 302 Found\n" +
-            "Set-Cookie:session=%d;\n"+
             "Location: http://localhost:8080";
 
     @Override
     public String doRequest(Request request) {
         int id=request.getSessionId();
-        if  (id != -1) {
+        if  (SessionHolder.containsSession(id)) {
             String bodyResponce= String.format(body,request.getUserInformation());
             return String.format(authoraizeHeader,id,  body.length(),bodyResponce);
-        } else {
-            return String.format(redirectHeader,id);
         }
+            return String.format(redirectHeader);
     }
 }

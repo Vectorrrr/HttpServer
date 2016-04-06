@@ -1,6 +1,7 @@
 package processor;
 
 import model.Request;
+import model.ResponseBuilder;
 import model.TypeRequest;
 import model.User;
 import server.session.SessionHolder;
@@ -12,8 +13,15 @@ import server.session.SessionHolder;
  * @author Gladush Ivan
  * @since 29.03.16.
  */
-public class LoginProcessor implements  PageProcessor{
-    private String body="<html>\n" +
+public class LoginProcessor implements  PageProcessor {
+    private static final String PAGE_FOUND = "HTTP/1.1 302 Found";
+    private static final String REDIRECT_PAGE = "Location: http://localhost:8080/Main";
+    private static final String SET_COOKIE = "Set-Cookie: session=%d;";
+    private static final String HTTP_OK = "HTTP/1.1 200 OK";
+    private static final String CONTENT_LENGTH = "Content-Length:  %d";
+    private static final String CLOSE_CONNECTION = "Connection: close";
+
+    private String body = "<html>\n" +
             "<head><title>Login Page</title></head>\n" +
             "<body>\n" +
             "\n" +
@@ -22,22 +30,9 @@ public class LoginProcessor implements  PageProcessor{
             "    <p>Surname: <input type=\"text\" name=\"surname\" required autocomplete=\"off\"></p>\n" +
             "    <input type=\"submit\" value=\"Submit\">\n" +
             "</form>\n" +
-            "\n" +
             "</body>\n" +
             "</html>";
 
-    private String anonimUserGet ="HTTP/1.1 200 OK\r\n" +
-            "Server: VanyaServer/2016\r\n" +
-            "Content-Type: text/html\r\n" +
-            "Set-Cookie: session=-1\r\n"+
-            "Content-Length:  %d \r\n" +
-            "Connection: close\r\n\r\n %s";
-
-
-
-    private String headerPost="HTTP/1.1 302 Found\r\n" +
-            "Location: http://localhost:8080/Main\r\n"+
-            "Set-Cookie: session=%d;";
 
     @Override
     public String doRequest(Request request) {
@@ -48,22 +43,27 @@ public class LoginProcessor implements  PageProcessor{
     }
 
     private String doGet(Request request) {
-        int sesId=request.getSessionId();
-        if(SessionHolder.containsSession(sesId)){
-            return String.format(headerPost,sesId);
+        int sesId = request.getSessionId();
+        if (SessionHolder.containsSession(sesId)) {
+            redirectPageAnswer(sesId);
         }
+        return new ResponseBuilder().addHeader(HTTP_OK).addHeader(String.format(CONTENT_LENGTH, body.length())).
+                addHeader(CLOSE_CONNECTION).addBody(body).build();
 
-        return String.format(anonimUserGet,body.length(),body);
     }
 
     private String doPost(Request request) {
         User user = createUser(request);
-        int id=SessionHolder.addSession(user);
-        return String.format(headerPost,id);
+        return redirectPageAnswer(SessionHolder.addSession(user));
     }
 
     private User createUser(Request request) {
-        return new User(request.getParameter("name"),request.getParameter("surname"));
+        return new User(request.getParameter("name"), request.getParameter("surname"));
+    }
+
+    private String redirectPageAnswer(int sessionId) {
+        return new ResponseBuilder().addHeader(PAGE_FOUND).addHeader(REDIRECT_PAGE).
+                addHeader(String.format(SET_COOKIE, sessionId)).build();
     }
 
 }

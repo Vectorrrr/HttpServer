@@ -1,6 +1,7 @@
 package processor;
 
 import model.Request;
+import model.ResponseBuilder;
 import server.session.SessionHolder;
 
 /**
@@ -11,12 +12,13 @@ import server.session.SessionHolder;
  */
 public class ExitProcessor implements PageProcessor {
 
-    private String redirectHeader="HTTP/1.1 302 Found\n" +
-            "Location: http://localhost:8080\n";
+    private static final String PAGE_FOUND = "HTTP/1.1 302 Found";
+    private static final String REDIRECT_LOCATION = "Location: http://localhost:8080";
+
 
     @Override
     public String doRequest(Request request) {
         SessionHolder.removeSession(request.getSessionId());
-        return redirectHeader;
+        return new ResponseBuilder().addHeader(PAGE_FOUND).addHeader(REDIRECT_LOCATION).build();
     }
 }
