@@ -1,0 +1,8 @@
+<html>
+<head><title>Main Page</title></head>
+<body>
+<h2>Welcome %s. In the main form!</h2>
+<h2>If you want to see your name, click here<a href=http://localhost:8080/Login>Your name</a></h2>
+<h2>If you want exit click this link <a href=http://localhost:8080/Exit>Exit</a></h2>
+</body>
+</html>

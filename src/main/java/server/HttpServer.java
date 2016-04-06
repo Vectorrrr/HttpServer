@@ -70,7 +70,6 @@ public class HttpServer implements  Runnable {
         if (!CheckerCorrectScheme.isCorrectFile(pathToFile, pathToScheme)) {
             log.error(INCORRECT_START);
         }
-
         return ProcessorHolder.initProcessHolder(pathToFile);
     }
 

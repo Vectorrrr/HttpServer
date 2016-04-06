@@ -17,6 +17,7 @@ import java.net.Socket;
  * @author Gladush Ivan
  * @since 29.03.16.
  */
+///todo write property
 public class Connection  implements AutoCloseable {
     private static final Logger log = Logger.getLogger(Connection.class);
     private static final String EXCEPTION_READ_SOCKET = "I can't read socket, because %s %s";
@@ -49,26 +50,6 @@ public class Connection  implements AutoCloseable {
     }
 
     /**
-     * returns whether a response has been sent or not
-     */
-    public boolean writeResponse(String s) {
-        try {
-            createWriter();
-            writer.write(s.getBytes());
-        } catch (IOException e) {
-            log.error(String.format(CANT_SEND_RESPONSE, e.getMessage()));
-            return false;
-        }
-        return true;
-    }
-
-    private void createWriter() throws IOException {
-        if (writer == null) {
-            writer = socket.getOutputStream();
-        }
-    }
-
-    /**
      * Method parse content and add this content in request
      */
     private void parseContentRequest(String content) {
@@ -82,6 +63,9 @@ public class Connection  implements AutoCloseable {
         }
     }
 
+    /**
+     * Returns the body content of the request. If this request is get returns 0
+     */
     private String readContent(int contentLength) throws IOException {
         StringBuilder body = new StringBuilder(EMPTY_STRING);
         for (int i = 0; i < contentLength; i++) {
@@ -103,7 +87,7 @@ public class Connection  implements AutoCloseable {
         do {
             head.append('\n').append(line);
             if (TypeRequest.POST.equals(type) &&
-                line.startsWith(CONTENT_HEADER)) {
+                    line.startsWith(CONTENT_HEADER)) {
                 contentLength = Integer.parseInt(line.split(" ")[1]);
             }
         } while (!EMPTY_STRING.equals(line = reader.readLine()));
@@ -118,6 +102,26 @@ public class Connection  implements AutoCloseable {
         }
     }
 
+    /**
+     * returns whether a response has been sent or not
+     */
+    public boolean writeResponse(String s) {
+        try {
+            createWriter();
+            writer.write(s.getBytes());
+        } catch (IOException e) {
+            log.error(String.format(CANT_SEND_RESPONSE, e.getMessage()));
+            return false;
+        }
+        return true;
+    }
+
+    private void createWriter() throws IOException {
+        if (writer == null) {
+            writer = socket.getOutputStream();
+        }
+    }
+
     @Override
     public void close() throws Exception {
         socket.close();
@@ -127,6 +131,4 @@ public class Connection  implements AutoCloseable {
     private static final String MANUAL_DECIDE_PROBLEM = "The error due to the fact that the socket can" +
             "not be used to read the data. Check the premature closure of the socket, or that " +
             "your application does not close the socket. Perhaps the client is disconnected.";
-
-
 }

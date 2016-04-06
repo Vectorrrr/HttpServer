@@ -1,4 +1,4 @@
-package utils;
+package loader;
 
 import org.apache.log4j.Logger;
 
@@ -11,18 +11,14 @@ import java.util.Properties;
  * @since 29.03.16.
  */
 public class PropertyLoader {
-    private static final Logger log= Logger.getLogger(PropertyLoader.class);
+    private static final Logger log = Logger.getLogger(PropertyLoader.class);
     private static final String EXCEPTION_DOWNLOAD_PROPERTIES = "I can't download properties %s";
     private static final String EXCEPTION_PROPETIE_DONT_FOUND = "This property not exist";
     private static Properties properties = new Properties();
 
-    private PropertyLoader(String fileName){
-
-    }
-
     static {
         try {
-            properties.load(ClassLoader.getSystemResourceAsStream("system.settings.properties"));
+            properties.load(ClassLoader.getSystemResourceAsStream("headers.properties"));
         } catch (IOException e) {
             log.error(String.format(EXCEPTION_DOWNLOAD_PROPERTIES, e));
             throw new IllegalStateException(String.format(EXCEPTION_DOWNLOAD_PROPERTIES, e));
@@ -30,7 +26,7 @@ public class PropertyLoader {
     }
 
 
-    public  String property(String propertyKey) {
+    public static String property(String propertyKey) {
         String property = (String) properties.get(propertyKey);
         if (property == null) {
             log.error(EXCEPTION_PROPETIE_DONT_FOUND);
@@ -38,5 +34,4 @@ public class PropertyLoader {
         }
         return property;
     }
-
 }

@@ -17,8 +17,8 @@ public class SessionHolder {
 
     public static Session getSession(String header) {
         int id = getSessionId(header);
-        for(Session s:sessions){
-            if(s.getId()==id){
+        for (Session s : sessions) {
+            if (s.getId() == id) {
                 return s;
             }
         }
@@ -41,22 +41,19 @@ public class SessionHolder {
         } catch (Exception e) {
             return -1;
         }
-
     }
-    public static void removeSession(int session){
+
+    public static void removeSession(int session) {
         sessions.remove(new Session(session));
     }
 
-    public static int sessionAmount(){
+    public static int sessionAmount() {
         return sessions.size();
     }
 
     public static boolean containsSession(int sesId) {
-        System.out.println("ID: "+sesId);
-        for(Session s:sessions){
-            System.out.println("id in pull: "+s.getId());
-            if(s.getId()==sesId){
-                System.out.println("qweasdasdasdasewqqweqwedasfsdvxcvxcv");
+        for (Session s : sessions) {
+            if (s.getId() == sesId) {
                 return true;
             }
         }

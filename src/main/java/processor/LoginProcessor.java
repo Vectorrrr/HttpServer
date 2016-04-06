@@ -1,5 +1,6 @@
 package processor;
 
+import loader.PageLoader;
 import model.Request;
 import model.ResponseBuilder;
 import model.TypeRequest;
@@ -21,17 +22,7 @@ import static processor.Header.CLOSE_CONNECTION;
  * @since 29.03.16.
  */
 public class LoginProcessor implements  PageProcessor {
-    private String body = "<html>\n" +
-            "<head><title>Login Page</title></head>\n" +
-            "<body>\n" +
-            "\n" +
-            "<form method=\"post\"><h2>Enter your information</h2>\n" +
-            "    <p>Name:<input type=\"text\" name=\"name\" required autocomplete=\"off\"></p>\n" +
-            "    <p>Surname: <input type=\"text\" name=\"surname\" required autocomplete=\"off\"></p>\n" +
-            "    <input type=\"submit\" value=\"Submit\">\n" +
-            "</form>\n" +
-            "</body>\n" +
-            "</html>";
+    private String body = PageLoader.getPage("login.page.txt");
 
 
     @Override

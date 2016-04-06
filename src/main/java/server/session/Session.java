@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @since 30.03.16.
  */
 public class Session {
-    private static AtomicInteger countSession =new AtomicInteger(-2);
+    private static AtomicInteger countSession = new AtomicInteger(-2);
     private int id;
     private User user;
 
@@ -21,8 +21,8 @@ public class Session {
         this.id = countSession.addAndGet(1);
     }
 
-    Session(int id){
-        this.id=id;
+    Session(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -42,5 +42,4 @@ public class Session {
         return o != null && o instanceof Session && ((Session) o).getId() == id;
 
     }
-
 }

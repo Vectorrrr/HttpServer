@@ -1,5 +1,6 @@
 package processor;
 
+import loader.PageLoader;
 import model.Request;
 import model.ResponseBuilder;
 import server.session.SessionHolder;
@@ -11,17 +12,7 @@ import static processor.Header.*;
  * @since 30.03.16.
  */
 public class MainProcessor implements PageProcessor {
-    private String body="<html>\n" +
-            "<head><title>Main Page</title></head>\n" +
-            "<body>\n" +
-            "\n" +
-            "<h2>Welcome %s. In the main form!</h2>\n" +
-            "<h2>If you want to see your name, click here<a href=\"http://localhost:8080/Login\">Your name</a></h2>\n" +
-            "<h2>If you want exit click this link <a href=\"http://localhost:8080/Exit\">Exit</a></h2>\n" +
-            "\n" +
-            "</body>\n" +
-            "</html>";
-
+    private static String body= PageLoader.getPage("main.page.txt");
 
     @Override
     public String doRequest(Request request) {
