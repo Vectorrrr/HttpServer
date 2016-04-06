@@ -1,5 +1,7 @@
 package model;
 
+import processor.Header;
+
 /**
  * @author Gladush Ivan
  * @since 06.04.16.
@@ -13,13 +15,19 @@ public class ResponseBuilder {
         this.header.append(header).append(NEW_LINE);
         return this;
     }
-
+    public ResponseBuilder addHeader(Header header){
+        return addHeader(header.toString());
+    }
+    public ResponseBuilder addHeader(Header header,int i){
+        return addHeader(String.format(header.toString(),i));
+    }
     public ResponseBuilder addBody(String body) {
         this.body.append(body);
         return this;
     }
 
     public String build() {
+        System.out.println(header);
         return header.append(NEW_LINE).append(body).toString();
     }
 }

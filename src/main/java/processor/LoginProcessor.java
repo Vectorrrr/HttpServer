@@ -5,6 +5,13 @@ import model.ResponseBuilder;
 import model.TypeRequest;
 import model.User;
 import server.session.SessionHolder;
+import static processor.Header.HTTP_OK;
+import static processor.Header.PAGE_FOUND;
+import static processor.Header.REDIRECT_TO_MAIN_LOCATION;
+import static processor.Header.SET_COOKIE;
+import static processor.Header.CONTENT_LENGTH;
+import static processor.Header.CLOSE_CONNECTION;
+
 
 /**
  * Class responsible for user authentication processing on
@@ -14,13 +21,6 @@ import server.session.SessionHolder;
  * @since 29.03.16.
  */
 public class LoginProcessor implements  PageProcessor {
-    private static final String PAGE_FOUND = "HTTP/1.1 302 Found";
-    private static final String REDIRECT_PAGE = "Location: http://localhost:8080/Main";
-    private static final String SET_COOKIE = "Set-Cookie: session=%d;";
-    private static final String HTTP_OK = "HTTP/1.1 200 OK";
-    private static final String CONTENT_LENGTH = "Content-Length:  %d";
-    private static final String CLOSE_CONNECTION = "Connection: close";
-
     private String body = "<html>\n" +
             "<head><title>Login Page</title></head>\n" +
             "<body>\n" +
@@ -45,11 +45,11 @@ public class LoginProcessor implements  PageProcessor {
     private String doGet(Request request) {
         int sesId = request.getSessionId();
         if (SessionHolder.containsSession(sesId)) {
-            redirectPageAnswer(sesId);
+            return redirectPageAnswer(sesId);
         }
-        return new ResponseBuilder().addHeader(HTTP_OK).addHeader(String.format(CONTENT_LENGTH, body.length())).
-                addHeader(CLOSE_CONNECTION).addBody(body).build();
 
+        return new ResponseBuilder().addHeader(HTTP_OK).addHeader(CONTENT_LENGTH, body.length()).
+                addHeader(CLOSE_CONNECTION).addBody(body).build();
     }
 
     private String doPost(Request request) {
@@ -62,8 +62,8 @@ public class LoginProcessor implements  PageProcessor {
     }
 
     private String redirectPageAnswer(int sessionId) {
-        return new ResponseBuilder().addHeader(PAGE_FOUND).addHeader(REDIRECT_PAGE).
-                addHeader(String.format(SET_COOKIE, sessionId)).build();
+        return new ResponseBuilder().addHeader(PAGE_FOUND).addHeader(REDIRECT_TO_MAIN_LOCATION).
+                addHeader(SET_COOKIE, sessionId).build();
     }
 
 }

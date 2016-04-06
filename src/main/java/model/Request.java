@@ -20,6 +20,9 @@ public class Request {
     private Session session;
 
     public Request(TypeRequest typeRequest, String header) {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(header);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~");
         this.typeRequest = typeRequest;
         this.url = RequestProcessor.getURL(header);
         this.session=initSession(header);

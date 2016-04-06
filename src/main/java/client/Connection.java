@@ -52,7 +52,6 @@ public class Connection  implements AutoCloseable {
      * returns whether a response has been sent or not
      */
     public boolean writeResponse(String s) {
-        System.out.println(s);
         try {
             createWriter();
             writer.write(s.getBytes());

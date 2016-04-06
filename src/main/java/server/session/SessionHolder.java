@@ -52,8 +52,11 @@ public class SessionHolder {
     }
 
     public static boolean containsSession(int sesId) {
+        System.out.println("ID: "+sesId);
         for(Session s:sessions){
+            System.out.println("id in pull: "+s.getId());
             if(s.getId()==sesId){
+                System.out.println("qweasdasdasdasewqqweqwedasfsdvxcvxcv");
                 return true;
             }
         }

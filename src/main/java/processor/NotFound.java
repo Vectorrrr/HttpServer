@@ -1,6 +1,9 @@
 package processor;
 
 import model.Request;
+import model.ResponseBuilder;
+import static  processor.Header.HTTP_NOT_FOUND;
+import static processor.Header.SET_COOKIE;
 
 /**
  * When the URL for the handler was not found, then the URL
@@ -9,11 +12,9 @@ import model.Request;
  * @since 05.04.16.
  */
 public class NotFound  implements  PageProcessor{
-    private String header="HTTP/1.1 404 NotFound\n"+
-            "Set-Cookie:session=-1;";
 
     @Override
     public String doRequest(Request request) {
-        return header;
+        return new ResponseBuilder().addHeader(HTTP_NOT_FOUND).addHeader(SET_COOKIE,-1).build();
     }
 }

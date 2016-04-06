@@ -1,7 +1,8 @@
 package processor;
 
 import model.Request;
-
+import model.ResponseBuilder;
+import static processor.Header.*;
 /**
  * Home page on which users enter at
  * the first entrance to the site
@@ -14,21 +15,15 @@ public class RootPageProcess implements PageProcessor {
            "<body>\n" +
            "\n" +
            "<h2>Welcome. I think your name is Roman!!!</h2>\n" +
-           "<h2>If you want to log in, click here<a href=\"http://localhost:8080/Login\">Visit W3Schools.com!</a></h2>\n" +
+           "<h2>If you want to log in, click here<a href=\"http://localhost:8080/Login\">Login in</a></h2>\n" +
            "\n" +
            "</body>\n" +
            "</html>";
 
-    private String header="HTTP/1.1 200 OK\r\n" +
-            "Server: VanyaServer/2016\r\n" +
-            "Content-Type: text/html\r\n" +
-            "Content-Length:  %d \r\n" +
-            "Set-Cookie: session=%d;\r\n"+
-            "Connection: close\r\n\r\n %s";
     public RootPageProcess(){}
     @Override
     public String doRequest(Request request) {
-        System.out.println("Request get session id:" + request.getSessionId());
-        return String.format(header, body.length(), request.getSessionId(),body);
+        return new ResponseBuilder().addHeader(HTTP_OK).addHeader(CONTENT_LENGTH,body.length()).
+                addHeader(SET_COOKIE,-1).addHeader(CLOSE_CONNECTION).addBody(body).build();
     }
 }

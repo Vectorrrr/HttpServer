@@ -4,7 +4,6 @@ import model.Bean;
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
-import processor.NotFound;
 import processor.PageProcessor;
 
 import javax.xml.parsers.SAXParser;
@@ -25,6 +24,7 @@ public class ProcessorHolder {
     private static final Logger log = Logger.getLogger(ProcessorHolder.class);
     private static final String EXCEPTION_CREATE_PROCESSOR_HOLDER = "I can't create file %s";
     private static final String EXCEPTION_CREATE_FILE = "I can't create new instance of class. Check exist it file. %s";
+    private static final String NOT_FOUND_DEFUALT_URL = "I can not find a class to handle unknown URLs";
     private List<Bean> processors = new ArrayList<>();
 
     /**
@@ -53,17 +53,28 @@ public class ProcessorHolder {
     }
 
     public PageProcessor getProcessor(String processor) {
+        try {
         for (Bean pr : processors) {
             if (pr.getUrl().equals(processor)) {
-                try {
                     return (PageProcessor) Class.forName(pr.getClassPath()).newInstance();
-                } catch (Exception e) {
-                    log.error(String.format(EXCEPTION_CREATE_FILE, e.getMessage()));
-                    throw new IllegalArgumentException(String.format(EXCEPTION_CREATE_FILE, e.getMessage()));
-                }
             }
         }
-        return new NotFound();
+        return notFoundClass();
+        } catch (Exception e) {
+            log.error(String.format(EXCEPTION_CREATE_FILE, e.getMessage()));
+            throw new IllegalArgumentException(String.format(EXCEPTION_CREATE_FILE, e.getMessage()));
+        }
+    }
+
+    private PageProcessor notFoundClass() throws Exception {
+        for(Bean bean: processors){
+            if(bean.getUrl().equals("/NotFound")){
+                return (PageProcessor) Class.forName(bean.getClassPath()).newInstance();
+            }
+        }
+        log.error(NOT_FOUND_DEFUALT_URL);
+        throw new IllegalArgumentException(NOT_FOUND_DEFUALT_URL);
+
     }
 
     private final class SaxHandler extends DefaultHandler {
