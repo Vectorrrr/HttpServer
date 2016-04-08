@@ -1,5 +1,7 @@
 package processor;
 
+import holder.PageHolder;
+import loader.PropertyLoader;
 import model.Request;
 import model.ResponseBuilder;
 import static processor.Header.*;
@@ -10,15 +12,7 @@ import static processor.Header.*;
  * @since 30.03.16.
  */
 public class RootPageProcess implements PageProcessor {
-   private  String body = "<html>\n" +
-           "<head><title>Root Page</title></head>\n" +
-           "<body>\n" +
-           "\n" +
-           "<h2>Welcome. I think your name is Roman!!!</h2>\n" +
-           "<h2>If you want to log in, click here<a href=\"http://localhost:8080/Login\">Login in</a></h2>\n" +
-           "\n" +
-           "</body>\n" +
-           "</html>";
+   private  String body = PageHolder.getPage(PropertyLoader.property("root.page"));
 
     public RootPageProcess(){}
     @Override

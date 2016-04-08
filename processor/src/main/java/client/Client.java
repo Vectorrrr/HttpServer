@@ -3,7 +3,7 @@ package client;
 import model.Request;
 import org.apache.log4j.Logger;
 import processor.PageProcessor;
-import server.ProcessorHolder;
+import holder.ProcessorHolder;
 
 /**
  * This class models a processing
@@ -19,6 +19,7 @@ public class Client implements Runnable {
     private ProcessorHolder processorHolder;
 
     public Client(Connection connection, ProcessorHolder processorHolder) {
+        log.info("New client");
         this.connection = connection;
         this.processorHolder = processorHolder;
     }

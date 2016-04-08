@@ -1,4 +1,4 @@
-package server;
+package holder;
 
 import model.Bean;
 import org.apache.log4j.Logger;

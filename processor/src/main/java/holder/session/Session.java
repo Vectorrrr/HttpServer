@@ -1,6 +1,7 @@
-package server.session;
+package holder.session;
 
 import model.User;
+import org.apache.log4j.Logger;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @since 30.03.16.
  */
 public class Session {
+    private static final Logger log =Logger.getLogger(Session.class);
     private static AtomicInteger countSession = new AtomicInteger(-2);
     private int id;
     private User user;
@@ -19,6 +21,7 @@ public class Session {
     public Session(User user) {
         this.user = user;
         this.id = countSession.addAndGet(1);
+        log.trace(String.format("\nCreate new session with user %s and the id session is %d\n",user,id));
     }
 
     Session(int id) {
@@ -26,7 +29,7 @@ public class Session {
     }
 
     public int getId() {
-        return countSession.get();
+        return this.id;
     }
 
     public String userName() {
@@ -39,7 +42,12 @@ public class Session {
 
     @Override
     public boolean equals(Object o) {
-        return o != null && o instanceof Session && ((Session) o).getId() == id;
+        return o == this || o instanceof Session && ((Session) o).getId() == id;
 
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s Surname: %s", userName(), userSurname());
     }
 }

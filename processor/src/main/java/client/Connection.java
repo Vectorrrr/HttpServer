@@ -3,7 +3,6 @@ package client;
 import model.Request;
 import model.TypeRequest;
 import org.apache.log4j.Logger;
-import processor.RequestProcessor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -82,7 +81,7 @@ public class Connection  implements AutoCloseable {
         StringBuilder head = new StringBuilder();
         String line;
         line = reader.readLine();
-        TypeRequest type = RequestProcessor.getTypeRequest(line);
+        TypeRequest type = TypeRequest.getTypeRequest(line);
         int contentLength = 0;
         do {
             head.append('\n').append(line);

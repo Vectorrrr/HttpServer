@@ -22,4 +22,9 @@ public class User {
     public String getSurname() {
         return surname;
     }
+
+    @Override
+    public String toString(){
+        return String.format("User name %s User surname: %s",name,surname);
+    }
 }

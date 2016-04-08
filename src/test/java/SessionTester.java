@@ -1,7 +1,7 @@
 import model.User;
 import org.junit.Test;
-import server.session.Session;
-import server.session.SessionHolder;
+import holder.session.Session;
+import holder.session.SessionHolder;
 
 import static junit.framework.TestCase.assertEquals;
 

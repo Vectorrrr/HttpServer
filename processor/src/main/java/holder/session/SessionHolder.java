@@ -1,6 +1,7 @@
-package server.session;
+package holder.session;
 
 import model.User;
+import org.apache.log4j.Logger;
 import processor.RequestProcessor;
 
 import java.util.List;
@@ -12,12 +13,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @since 30.03.16.
  */
 public class SessionHolder {
+    private static final Logger log=Logger.getLogger(SessionHolder.class);
     private static final Session defaultSession = new Session(new User("anonim", "anonim"));
     private static List<Session> sessions = new CopyOnWriteArrayList<>();
 
     public static Session getSession(String header) {
         int id = getSessionId(header);
-        for (Session s : sessions) {
+      for (Session s : sessions) {
             if (s.getId() == id) {
                 return s;
             }
@@ -31,6 +33,7 @@ public class SessionHolder {
     public static int addSession(User user) {
         Session s = new Session(user);
         sessions.add(s);
+        log.info(String.format("Add new session %s",sessions.toString()));
         return s.getId();
     }
 

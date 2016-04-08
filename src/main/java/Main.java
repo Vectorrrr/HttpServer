@@ -1,14 +1,11 @@
-import loader.PageLoader;
-import loader.PropertyLoader;
+import java.io.File;
 
 /**
- * @author Gladush Ivan
- * @since 29.03.16.
+ * Created by igladush on 07.04.16.
  */
-
 public class Main {
     public static void main(String[] args){
-        System.out.println( PropertyLoader.property("page.found"));
-        System.out.println(PageLoader.getPage("rootPage.txt"));
+        Thread.currentThread()
+
     }
 }

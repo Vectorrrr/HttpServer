@@ -2,6 +2,8 @@ package processor;
 
 import model.Request;
 import model.ResponseBuilder;
+
+import static processor.Header.CLOSE_CONNECTION;
 import static  processor.Header.HTTP_NOT_FOUND;
 import static processor.Header.SET_COOKIE;
 
@@ -15,6 +17,6 @@ public class NotFound  implements  PageProcessor{
 
     @Override
     public String doRequest(Request request) {
-        return new ResponseBuilder().addHeader(HTTP_NOT_FOUND).addHeader(SET_COOKIE,-1).build();
+        return new ResponseBuilder().addHeader(HTTP_NOT_FOUND).addHeader(SET_COOKIE,-1).addHeader(CLOSE_CONNECTION).build();
     }
 }

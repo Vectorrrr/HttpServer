@@ -2,6 +2,7 @@ package server;
 
 import client.Client;
 import client.Connection;
+import holder.ProcessorHolder;
 import org.apache.log4j.Logger;
 import utils.CheckerCorrectScheme;
 
@@ -26,7 +27,7 @@ public class HttpServer implements  Runnable {
     private ProcessorHolder processorHolder;
     private int port;
 
-    public HttpServer(ProcessorHolder processorHolder, int port) {
+    private HttpServer(ProcessorHolder processorHolder, int port) {
         this.processorHolder = processorHolder;
         this.port = port;
     }
@@ -59,6 +60,7 @@ public class HttpServer implements  Runnable {
                 break;
             default:
                 pathToFile = ClassLoader.getSystemResource("configuration.xml").getFile();
+                //todo rewrite
                 log.error(INCORRECT_START);
         }
         return pathToFile;

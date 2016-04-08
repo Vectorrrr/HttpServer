@@ -16,22 +16,22 @@ public class RequestProcessorTest {
 
     @Test
     public void get_method_name_test1() {
-        assertEquals(TypeRequest.POST, RequestProcessor.getTypeRequest("POST /?fname=sdf&surname=sdfsdf HTTP/1.1Host:"));
+        assertEquals(TypeRequest.POST, TypeRequest.getTypeRequest("POST /?fname=sdf&surname=sdfsdf HTTP/1.1Host:"));
     }
 
     @Test
     public void get_method_name_test2() {
-        assertEquals(TypeRequest.GET, RequestProcessor.getTypeRequest("GET /?fnamsdfe=sdf&surnfdgdfgame=sdfsdf HTTP/1.1Host:"));
+        assertEquals(TypeRequest.GET, TypeRequest.getTypeRequest("GET /?fnamsdfe=sdf&surnfdgdfgame=sdfsdf HTTP/1.1Host:"));
     }
 
     @Test
     public void get_method_name_test3() {
-        assertEquals(TypeRequest.UNKNOWN, RequestProcessor.getTypeRequest("DFSF /?fnamsdfe=sdf&surnfdgdfgame=sdfsdf HTTP/1.1Host:"));
+        assertEquals(TypeRequest.UNKNOWN, TypeRequest.getTypeRequest("DFSF /?fnamsdfe=sdf&surnfdgdfgame=sdfsdf HTTP/1.1Host:"));
     }
 
     @Test
     public void get_method_name_test4() {
-        assertEquals(TypeRequest.UNKNOWN, RequestProcessor.getTypeRequest(" /?fnamsdfe=sdf&surnfdgdfgame=sdfsdf HTTP/1.1Host:"));
+        assertEquals(TypeRequest.UNKNOWN, TypeRequest.getTypeRequest(" /?fnamsdfe=sdf&surnfdgdfgame=sdfsdf HTTP/1.1Host:"));
     }
 
     @Test

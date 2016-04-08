@@ -1,11 +1,12 @@
 package processor;
 
-import loader.PageLoader;
+import holder.PageHolder;
+import loader.PropertyLoader;
 import model.Request;
 import model.ResponseBuilder;
 import model.TypeRequest;
 import model.User;
-import server.session.SessionHolder;
+import holder.session.SessionHolder;
 import static processor.Header.HTTP_OK;
 import static processor.Header.PAGE_FOUND;
 import static processor.Header.REDIRECT_TO_MAIN_LOCATION;
@@ -22,7 +23,7 @@ import static processor.Header.CLOSE_CONNECTION;
  * @since 29.03.16.
  */
 public class LoginProcessor implements  PageProcessor {
-    private String body = PageLoader.getPage("login.page.txt");
+    private String body = PageHolder.getPage(PropertyLoader.property("login.page"));
 
 
     @Override
@@ -54,7 +55,7 @@ public class LoginProcessor implements  PageProcessor {
 
     private String redirectPageAnswer(int sessionId) {
         return new ResponseBuilder().addHeader(PAGE_FOUND).addHeader(REDIRECT_TO_MAIN_LOCATION).
-                addHeader(SET_COOKIE, sessionId).build();
+                addHeader(SET_COOKIE, sessionId).addHeader(CLOSE_CONNECTION).build();
     }
 
 }
